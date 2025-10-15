@@ -35,7 +35,7 @@ The easiest way to run the application is using Docker Compose:
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/cemmydev/hypromotion.git
    cd hypromotion
    ```
 
@@ -570,18 +570,6 @@ Logs are stored in the `logs/` directory:
 - `combined.log`: All logs
 - `error.log`: Error logs only
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Ensure all tests pass
-6. Submit a pull request
-
-## License
-
-MIT License - see LICENSE file for details
 
 ## Support
 
