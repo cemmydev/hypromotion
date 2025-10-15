@@ -8,11 +8,13 @@ let topCountriesChart = null;
 let autoRefreshInterval = null;
 let countryNames = {}; // Will be populated from API
 let availableCountries = []; // Will be populated from API
+let popularCountries = []; // Will be populated from API
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
     setupEventListeners();
+    loadPopularCountries();
     loadCountries().then(() => {
         loadStatistics();
         // Auto-refresh every 5 seconds
@@ -124,6 +126,35 @@ async function loadCountries() {
     }
 }
 
+async function loadPopularCountries() {
+    try {
+        // Load popular countries for the dropdown
+        const response = await makeApiRequest('/visits/countries?popular=true');
+        
+        if (response.success) {
+            popularCountries = response.data.countries;
+
+            countryNames = {};
+            availableCountries.forEach(country => {
+                countryNames[country.code] = country.name;
+            });
+            
+            // Update the dropdown
+            updateCountryDropdown();
+
+            console.log(`Loaded ${popularCountries.length} popular countries`);
+        } else {
+            console.error('Failed to load countries');
+            // Fallback to hardcoded countries
+            loadFallbackCountries();
+        }
+    } catch (error) {
+        console.error('Error loading countries:', error);
+        // Fallback to hardcoded countries
+        loadFallbackCountries();
+    }
+}
+
 function loadFallbackCountries() {
     // Fallback countries if API fails
     availableCountries = [
@@ -206,6 +237,7 @@ async function resetStatistics() {
 
 async function simulateBulkVisits() {
     const countryCodes = availableCountries.map(country => country.code);
+    const popularContryCodes = popularCountries.map(country => country.code);
     const visitsToSimulate = 200;
     
     try {
@@ -213,8 +245,18 @@ async function simulateBulkVisits() {
         showMessage(`Simulating ${visitsToSimulate} visits...`, 'info');
         
         const promises = [];
-        for (let i = 0; i < visitsToSimulate; i++) {
+        for (let i = 0; i < visitsToSimulate / 2; i++) {
             const randomCountry = countryCodes[Math.floor(Math.random() * countryCodes.length)];
+            promises.push(
+                makeApiRequest('/visits/track', {
+                    method: 'POST',
+                    body: JSON.stringify({ countryCode: randomCountry })
+                })
+            );
+        }
+
+        for (let i = 0; i < visitsToSimulate / 2; i++) {
+            const randomCountry = popularContryCodes[Math.floor(Math.random() * popularContryCodes.length)];
             promises.push(
                 makeApiRequest('/visits/track', {
                     method: 'POST',
