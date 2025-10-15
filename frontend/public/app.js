@@ -411,13 +411,19 @@ function generateColors(count) {
 }
 
 function getCountryFlag(countryCode) {
-    // Simple flag emoji mapping (you could use a more comprehensive library)
-    const flags = {
-        'us': '🇺🇸', 'uk': '🇬🇧', 'de': '🇩🇪', 'fr': '🇫🇷', 'it': '🇮🇹',
-        'es': '🇪🇸', 'ca': '🇨🇦', 'au': '🇦🇺', 'jp': '🇯🇵', 'br': '🇧🇷',
-        'ru': '🇷🇺', 'cn': '🇨🇳', 'in': '🇮🇳', 'mx': '🇲🇽'
-    };
-    return flags[countryCode] || '🌍';
+    if (!countryCode || typeof countryCode !== 'string' || countryCode.length !== 2) {
+        return '🏳️'; // Return white flag for invalid codes
+    }
+    
+    const code = countryCode.toUpperCase();
+    
+    // Convert country code to Unicode regional indicator symbols
+    // This creates flag emojis dynamically for any valid country code
+    const flag = String.fromCodePoint(...code.split('').map(char => 
+        0x1F1E6 + char.charCodeAt(0) - 'A'.charCodeAt(0)
+    ));
+    
+    return flag;
 }
 
 function showMessage(message, type = 'info') {
