@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Visit Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-chart-line"></i> Website Visit Tracker</h1>
+            <p>Real-time analytics dashboard for tracking website visits by country</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <h2><i class="fas fa-cogs"></i> Control Panel</h2>
+                
+                <div class="track-form">
+                    <h3>Track New Visit</h3>
+                    <div class="form-group">
+                        <label for="countryCode">Country:</label>
+                        <select id="countryCode" required>
+                            <option value="">Loading countries...</option>
+                        </select>
+                    </div>
+                    <button id="trackBtn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Track Visit
+                    </button>
+                </div>
+
+                <div class="bulk-operations">
+                    <h3>Bulk Operations</h3>
+                    <div class="button-group">
+                        <button id="bulkTrackBtn" class="btn btn-secondary">
+                            <i class="fas fa-bolt"></i> Simulate 100 Visits
+                        </button>
+                        <button id="refreshBtn" class="btn btn-secondary">
+                            <i class="fas fa-sync-alt"></i> Refresh Stats
+                        </button>
+                        <button id="resetBtn" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Reset All Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Display -->
+            <div class="stats-panel">
+                <h2><i class="fas fa-chart-bar"></i> Statistics</h2>
+                
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="totalVisits">0</div>
+                            <div class="stat-label">Total Visits</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="totalCountries">0</div>
+                            <div class="stat-label">Countries</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-section">
+                        <h3>Visit Distribution by Country</h3>
+                        <div class="chart-container">
+                            <canvas id="countryChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-section">
+                        <h3>Top Countries</h3>
+                        <div class="chart-container">
+                            <canvas id="topCountriesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detailed-stats">
+                    <h3>Detailed Statistics</h3>
+                    <div class="stats-table-container">
+                        <table class="stats-table" id="statsTable">
+                            <thead>
+                                <tr>
+                                    <th>Country</th>
+                                    <th>Code</th>
+                                    <th>Visits</th>
+                                    <th>Percentage</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="statsTableBody">
+                                <!-- Dynamic content will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Messages -->
+        <div id="statusMessage" class="status-message"></div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
