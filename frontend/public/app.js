@@ -97,7 +97,7 @@ async function trackVisit() {
 async function loadCountries() {
     try {
         // Load popular countries for the dropdown
-        const response = await makeApiRequest('/visits/countries?popular=true');
+        const response = await makeApiRequest('/visits/countries?popular=false');
         
         if (response.success) {
             availableCountries = response.data.countries;
