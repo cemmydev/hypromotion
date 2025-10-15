@@ -206,7 +206,7 @@ async function resetStatistics() {
 
 async function simulateBulkVisits() {
     const countryCodes = availableCountries.map(country => country.code);
-    const visitsToSimulate = 100;
+    const visitsToSimulate = 200;
     
     try {
         showLoading(true);
