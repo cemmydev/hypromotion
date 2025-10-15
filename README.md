@@ -11,7 +11,8 @@ A high-performance REST API and web application for tracking website visits by c
 - **Dynamic Country Data**: Uses npm package for comprehensive country codes and names
 - **Comprehensive Testing**: Unit and integration tests included
 - **Production Ready**: Error handling, logging, and monitoring
-- **Easy Deployment**: Simple setup with environment configuration
+- **Easy Deployment**: Docker support with docker-compose for one-command setup
+- **Containerized**: Full Docker support with optimized multi-stage builds
 
 ## Architecture
 
@@ -28,13 +29,45 @@ A high-performance REST API and web application for tracking website visits by c
 
 ## Quick Start
 
-### Prerequisites
+### Option 1: Docker (Recommended)
+
+The easiest way to run the application is using Docker Compose:
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd hypromotion
+   ```
+
+2. **Start all services with Docker Compose**
+   ```bash
+   docker-compose up -d
+   ```
+
+3. **Access the application**
+   - Frontend: http://localhost:8080
+   - Backend API: http://localhost:3000
+   - Redis Commander (optional): http://localhost:8081
+
+4. **View logs**
+   ```bash
+   docker-compose logs -f
+   ```
+
+5. **Stop services**
+   ```bash
+   docker-compose down
+   ```
+
+### Option 2: Manual Installation
+
+#### Prerequisites
 
 - Node.js 18+ 
 - Redis 6+
 - npm or yarn
 
-### Installation
+#### Installation
 
 1. **Clone the repository**
    ```bash
@@ -348,6 +381,53 @@ npm test -- --testPathPattern=load.test.js
 - **Mock Redis**: Tests use Redis mock for isolation
 
 ## Deployment
+
+### Docker Deployment (Recommended)
+
+The easiest way to deploy is using Docker Compose:
+
+1. **Production deployment with Docker Compose**
+   ```bash
+   # Clone the repository
+   git clone <repository-url>
+   cd hypromotion
+   
+   # Set production environment
+   export NODE_ENV=production
+   
+   # Start all services
+   docker-compose up -d
+   
+   # Check service status
+   docker-compose ps
+   
+   # View logs
+   docker-compose logs -f
+   ```
+
+2. **Enable Redis Commander for monitoring (optional)**
+   ```bash
+   docker-compose --profile tools up -d
+   ```
+
+3. **Scale services for high load**
+   ```bash
+   # Scale backend instances
+   docker-compose up -d --scale backend=3
+   
+   # Use a load balancer (nginx, traefik, etc.)
+   ```
+
+4. **Update services**
+   ```bash
+   # Pull latest changes
+   git pull
+   
+   # Rebuild and restart
+   docker-compose down
+   docker-compose build
+   docker-compose up -d
+   ```
 
 ### Production Deployment
 

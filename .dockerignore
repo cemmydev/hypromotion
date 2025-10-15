@@ -18,4 +18,9 @@ Thumbs.db
 *.swp
 *.swo
 *~
-
+tests/
+jest.config.js
+start.sh
+stop.sh
+.backend.pid
+.frontend.pid
