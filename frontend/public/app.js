@@ -277,7 +277,10 @@ function updateCountryChart() {
                     position: 'bottom',
                     labels: {
                         padding: 20,
-                        usePointStyle: true
+                        usePointStyle: true,
+                        boxWidth: 12,
+                        maxWidth: 150,
+                        truncate: 15
                     }
                 },
                 tooltip: {
@@ -355,11 +358,12 @@ function updateStatsTable() {
     sortedCountries.forEach(([countryCode, count]) => {
         const percentage = totalVisits > 0 ? ((count / totalVisits) * 100).toFixed(1) : 0;
         
+        const countryName = countryNames[countryCode] || countryCode.toUpperCase();
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>
+            <td title="${countryName}">
                 <span class="country-flag">${getCountryFlag(countryCode)}</span>
-                ${countryNames[countryCode] || countryCode.toUpperCase()}
+                ${countryName}
             </td>
             <td><code>${countryCode.toUpperCase()}</code></td>
             <td>${count.toLocaleString()}</td>

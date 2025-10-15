@@ -97,6 +97,13 @@ select, input {
     background: white;
 }
 
+/* Dropdown option ellipsis */
+select option {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 select:focus, input:focus {
     outline: none;
     border-color: #667eea;
@@ -238,7 +245,7 @@ select:focus, input:focus {
 
 .chart-container {
     position: relative;
-    height: 300px;
+    height: 400px;
     margin-top: 15px;
 }
 
@@ -278,6 +285,33 @@ select:focus, input:focus {
 
 .stats-table td {
     color: #2d3748;
+}
+
+/* Country name ellipsis in table */
+.stats-table td:first-child {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: help;
+    position: relative;
+}
+
+/* Tooltip for country names */
+.stats-table td:first-child:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
 }
 
 .stats-table tbody tr:hover {
@@ -405,6 +439,11 @@ select:focus, input:focus {
     .stats-panel {
         padding: 20px;
     }
+    
+    /* Shorter max-width for country names on mobile */
+    .stats-table td:first-child {
+        max-width: 120px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -427,6 +466,17 @@ select:focus, input:focus {
     
     .stat-value {
         font-size: 1.5rem;
+    }
+    
+    /* Even shorter max-width for very small screens */
+    .stats-table td:first-child {
+        max-width: 80px;
+    }
+    
+    /* Hide some columns on very small screens */
+    .stats-table th:nth-child(4),
+    .stats-table td:nth-child(4) {
+        display: none;
     }
 }
 
